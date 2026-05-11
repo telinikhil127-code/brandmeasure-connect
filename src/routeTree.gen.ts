@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PaymentsRouteImport } from './routes/payments'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -25,6 +26,11 @@ const TasksRoute = TasksRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentsRoute = PaymentsRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/tasks': typeof TasksRouteWithChildren
   '/tasks/$taskId': typeof TasksTaskIdRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/tasks': typeof TasksRouteWithChildren
   '/tasks/$taskId': typeof TasksTaskIdRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/payments': typeof PaymentsRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/tasks': typeof TasksRouteWithChildren
   '/tasks/$taskId': typeof TasksTaskIdRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/payments'
+    | '/profile'
     | '/register'
     | '/tasks'
     | '/tasks/$taskId'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/payments'
+    | '/profile'
     | '/register'
     | '/tasks'
     | '/tasks/$taskId'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/payments'
+    | '/profile'
     | '/register'
     | '/tasks'
     | '/tasks/$taskId'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   PaymentsRoute: typeof PaymentsRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   TasksRoute: typeof TasksRouteWithChildren
 }
@@ -134,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/payments': {
@@ -189,6 +209,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   PaymentsRoute: PaymentsRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   TasksRoute: TasksRouteWithChildren,
 }
