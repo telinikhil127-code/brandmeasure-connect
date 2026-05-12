@@ -13,7 +13,7 @@ export const Route = createFileRoute("/tasks")({
 const tabs: { key: "all" | TaskStatus; labelKey: "newTasks" | "inProgress" | "completed" | "statusNew" | "statusInProgress" }[] = [];
 
 function TasksPage() {
-  const { tasks, role } = useApp();
+  const { tasks, role, tasksLoading, firestoreConnected, firestoreEmpty } = useApp();
   const { t } = useI18n();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<"all" | "active" | "completed">("active");
@@ -43,8 +43,26 @@ function TasksPage() {
           <Tab k="all" label="All" />
         </div>
         <div className="space-y-3">
+          {!tasksLoading && firestoreConnected && (
+            <div className="rounded-xl border border-border bg-surface px-3 py-2 text-xs text-muted-foreground">
+              Firestore connected. Showing live data from `tasks` collection.
+            </div>
+          )}
+
+          {tasksLoading && (
+            <div className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground">
+              Loading tasks from Firestore...
+            </div>
+          )}
+
+          {!tasksLoading && firestoreConnected && firestoreEmpty && (
+            <div className="rounded-2xl border border-border bg-card p-5 text-sm text-muted-foreground">
+              No tasks found in Firestore yet. Add a task from the Assign screen to populate your `tasks` collection.
+            </div>
+          )}
+
           {filtered.map((task) => <TaskCard key={task.id} task={task} />)}
-          {filtered.length === 0 && (
+          {!tasksLoading && filtered.length === 0 && !firestoreEmpty && (
             <div className="text-center text-sm text-muted-foreground py-12">No tasks here yet.</div>
           )}
         </div>
