@@ -20,8 +20,12 @@ function LoginPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setUser({ name: role === "agency" ? "Aarav Mehta" : "Suresh Kumar", email });
-    navigate({ to: "/dashboard" });
+    const name =
+      role === "agency" ? "Aarav Mehta" : role === "admin" ? "Platform Admin" : "Suresh Kumar";
+    setUser({ name, email });
+    const target =
+      role === "admin" ? "/admin" : role === "agency" ? "/agency" : "/dashboard";
+    navigate({ to: target });
   };
 
   return (
@@ -29,7 +33,9 @@ function LoginPage() {
       <TopBar back={() => navigate({ to: "/" })} title={t("login")} />
       <form onSubmit={onSubmit} className="px-6 pt-6 pb-10 flex-1 flex flex-col">
         <div className="mb-6">
-          <div className="text-xs uppercase tracking-widest text-muted-foreground">{t(role === "agency" ? "agency" : "vendor")}</div>
+          <div className="text-xs uppercase tracking-widest text-muted-foreground">
+            {t(role === "agency" ? "agency" : role === "admin" ? "admin" : "vendor")}
+          </div>
           <h1 className="text-2xl font-bold mt-1">{t("welcome")}</h1>
         </div>
 

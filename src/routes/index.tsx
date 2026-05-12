@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { useApp } from "@/lib/app-store";
 import { useI18n } from "@/lib/i18n";
 import { LangToggle } from "@/components/TopBar";
@@ -9,13 +8,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
-  const { role, setRole } = useApp();
+  const { setRole } = useApp();
   const { t } = useI18n();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (role) navigate({ to: "/dashboard" });
-  }, [role, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col px-6 pt-10 pb-10">
@@ -51,6 +46,14 @@ function Landing() {
             onClick={() => { setRole("vendor"); navigate({ to: "/login" }); }}
             icon={
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 7l3-4h12l3 4"/><path d="M3 7v13h18V7"/><path d="M9 12h6"/></svg>
+            }
+          />
+          <RoleCard
+            title={t("admin")}
+            desc={t("adminDesc")}
+            onClick={() => { setRole("admin"); navigate({ to: "/login" }); }}
+            icon={
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             }
           />
         </div>

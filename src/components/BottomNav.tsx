@@ -14,7 +14,7 @@ export function BottomNav() {
     { to: "/profile", label: t("profile"), icon: UserIcon },
   ] as const;
 
-  if (!role) return null;
+  if (!role || role === "admin") return null;
 
   return (
     <nav className="sticky bottom-0 z-20 mt-8 border-t border-border bg-background/85 backdrop-blur-xl">

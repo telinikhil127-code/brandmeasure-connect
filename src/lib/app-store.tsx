@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
-export type Role = "agency" | "vendor";
+export type Role = "agency" | "vendor" | "admin";
 
 export type TaskStatus = "new" | "accepted" | "in_progress" | "submitted" | "paid";
 

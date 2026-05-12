@@ -16,6 +16,8 @@ import { Route as PaymentsRouteImport } from './routes/payments'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AssignRouteImport } from './routes/assign'
+import { Route as AgencyRouteImport } from './routes/agency'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TasksTaskIdRouteImport } from './routes/tasks.$taskId'
 
@@ -54,6 +56,16 @@ const AssignRoute = AssignRouteImport.update({
   path: '/assign',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgencyRoute = AgencyRouteImport.update({
+  id: '/agency',
+  path: '/agency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +79,8 @@ const TasksTaskIdRoute = TasksTaskIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/agency': typeof AgencyRoute
   '/assign': typeof AssignRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -78,6 +92,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/agency': typeof AgencyRoute
   '/assign': typeof AssignRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -90,6 +106,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/agency': typeof AgencyRoute
   '/assign': typeof AssignRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
@@ -103,6 +121,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/agency'
     | '/assign'
     | '/dashboard'
     | '/login'
@@ -114,6 +134,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
+    | '/agency'
     | '/assign'
     | '/dashboard'
     | '/login'
@@ -125,6 +147,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/agency'
     | '/assign'
     | '/dashboard'
     | '/login'
@@ -137,6 +161,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AgencyRoute: typeof AgencyRoute
   AssignRoute: typeof AssignRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
@@ -197,6 +223,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssignRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agency': {
+      id: '/agency'
+      path: '/agency'
+      fullPath: '/agency'
+      preLoaderRoute: typeof AgencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -226,6 +266,8 @@ const TasksRouteWithChildren = TasksRoute._addFileChildren(TasksRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AgencyRoute: AgencyRoute,
   AssignRoute: AssignRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
