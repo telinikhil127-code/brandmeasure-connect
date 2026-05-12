@@ -1,11 +1,11 @@
-{
+"build": "vite build && echo done",{
   "name": "tanstack_start_ts",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && echo done",
+    "build": "vinxi build",
     "build:dev": "vite build && echo done --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -87,4 +87,3 @@
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1"
   }
-}
